@@ -2,4 +2,4 @@
 
 namespace CharacterSheets.Core.Models;
 
-public sealed record PartyMember(string Name, string AccountName, CharacterId CharacterId);
+public sealed record PartyMember(string CharacterName, string AccountName, CharacterId CharacterId);
