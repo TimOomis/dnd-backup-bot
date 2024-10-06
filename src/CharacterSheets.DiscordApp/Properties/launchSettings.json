@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CharacterSheets.DiscordApp": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

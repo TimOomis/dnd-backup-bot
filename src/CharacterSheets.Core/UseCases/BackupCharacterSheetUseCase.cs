@@ -3,14 +3,14 @@ using CharacterSheets.Core.Exceptions;
 using CharacterSheets.Core.Models;
 using CharacterSheets.Core.Ports;
 using CharacterSheets.Core.UseCases.Interfaces;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace CharacterSheets.Core.UseCases;
 
 public class BackupCharacterSheetUseCase(
     ICharacterSheetPublisher characterSheetPublisher,
     PublisherSettings publishSettings,
-    ILogger logger) : IBackupCharacterSheetUseCase
+    ILogger<BackupCharacterSheetUseCase> logger) : IBackupCharacterSheetUseCase
 {
     public async Task Execute(IReadOnlyCollection<CharacterSheet> characterSheets)
     {
@@ -24,7 +24,7 @@ public class BackupCharacterSheetUseCase(
         }
         catch (Exception ex)
         {
-            logger.Error(ex, "Failed to publish character sheets due to an unexpected error");
+            logger.LogError(ex, "Failed to publish character sheets due to an unexpected error");
             throw new PublishingSheetsFailedException(ex);
         }
     }
@@ -33,6 +33,6 @@ public class BackupCharacterSheetUseCase(
     {
         await characterSheetPublisher.Publish(publishSettings.DisplayName, characterSheets);
 
-        logger.Information("Character sheets have been published!");
+        logger.LogInformation("Character sheets have been published!");
     }
 }

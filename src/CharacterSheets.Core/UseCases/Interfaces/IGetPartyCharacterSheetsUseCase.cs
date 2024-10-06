@@ -2,7 +2,7 @@
 
 namespace CharacterSheets.Core.UseCases.Interfaces;
 
-internal interface IGetPartyCharacterSheetsUseCase
+public interface IGetPartyCharacterSheetsUseCase
 {
     Task<IReadOnlyCollection<CharacterSheet>> Execute();
 }

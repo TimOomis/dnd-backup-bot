@@ -6,4 +6,4 @@ using System.Threading.Tasks;
 
 namespace CharacterSheets.Adapters.Files.Configuration;
 
-public record FileSystemSettings(string Path);
+public record FileSystemSettings(string PartyJsonFilePath);

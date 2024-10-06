@@ -1,11 +1,12 @@
 ﻿using CharacterSheets.Core.Exceptions;
 using CharacterSheets.Core.Models;
 using CharacterSheets.Core.Ports;
+using Microsoft.Extensions.Logging;
 using Serilog;
 
 namespace CharacterSheets.Adapters.DndBeyond.Ports;
 
-internal class CharacterSheetStore(HttpClient httpClient, ILogger logger) : ICharacterSheetStore
+internal class CharacterSheetStore(HttpClient httpClient, ILogger<CharacterSheetStore> logger) : ICharacterSheetStore
 {
     public async Task<CharacterSheet> GetSheet(PartyMember partyMember)
     {
@@ -13,15 +14,16 @@ internal class CharacterSheetStore(HttpClient httpClient, ILogger logger) : ICha
         {
             var bytes = await httpClient.GetByteArrayAsync(GetFileName(partyMember));
 
-            logger.Debug("Successfully downloaded the character sheet for {CharacterName}.", partyMember.CharacterName);
+            logger.LogDebug("Successfully downloaded the character sheet for {CharacterName}.", partyMember.CharacterName);
 
             return new CharacterSheet(
                 FileName: $"{partyMember.CharacterName}.pdf",
-                Data: bytes);
+                Data: bytes,
+                CharacterName: partyMember.CharacterName);
         }
         catch (Exception ex)
         {
-            logger.Error(ex, "Failed to download the character sheet for {CharacterName}.", partyMember.CharacterName);
+            logger.LogError(ex, "Failed to download the character sheet for {CharacterName}.", partyMember.CharacterName);
             throw new FailedToRetrieveCharacterSheetException(ex);
         }
     }

@@ -2,14 +2,14 @@
 using CharacterSheets.Core.Models;
 using CharacterSheets.Core.Ports;
 using CharacterSheets.Core.UseCases.Interfaces;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace CharacterSheets.Core.UseCases;
 
 internal class GetPartyCharacterSheetsUseCase(
     IPartyStore partyStore,
     ICharacterSheetStore characterSheetStore,
-    ILogger logger) : IGetPartyCharacterSheetsUseCase
+    ILogger<GetPartyCharacterSheetsUseCase> logger) : IGetPartyCharacterSheetsUseCase
 {
     public async Task<IReadOnlyCollection<CharacterSheet>> Execute()
     {
@@ -23,7 +23,7 @@ internal class GetPartyCharacterSheetsUseCase(
         }
         catch (Exception ex)
         {
-            logger.Error(ex, "Failed to retrieve character sheets due to an unexpected error");
+            logger.LogError(ex, "Failed to retrieve character sheets due to an unexpected error");
             throw new CouldNotGetPartyCharacterSheetsException(ex);
         }
     }
@@ -34,13 +34,13 @@ internal class GetPartyCharacterSheetsUseCase(
 
         if (party.PartyMembers.Count == 0)
         {
-            logger.Warning("No party members found");
+            logger.LogWarning("No party members found");
             throw new ArgumentException("The party cannot be empty.");
         }
 
         var sheets = (await Task.WhenAll(party.PartyMembers.Select(GetSheet))).ToList();
 
-        logger.Information("Successfully retrieved {SheetCount} character sheets.", sheets.Count);
+        logger.LogInformation("Successfully retrieved {SheetCount} character sheets.", sheets.Count);
         return sheets;
     }
 
