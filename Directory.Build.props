@@ -1,0 +1,32 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <Authors>Tim Oomis</Authors>
+    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>S1135</NoWarn>
+    <!-- Skipped codes:
+      S1135: Track uses of "TODO" tags, personal preference; https://rules.sonarsource.com/csharp/RSPEC-1135
+    -->
+   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+	<!-- SonarAnalyzer -->
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.32.0.97167">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+	<!-- SecurityCodeScan - Static security vulnerability scan; https://security-code-scan.github.io/ -->
+    <PackageReference Include="SecurityCodeScan.VS2019" Version="5.6.7">
+       <PrivateAssets>all</PrivateAssets>
+       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>

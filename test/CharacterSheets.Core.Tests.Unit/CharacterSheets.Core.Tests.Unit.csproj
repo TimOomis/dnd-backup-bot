@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\CharacterSheets.Core\CharacterSheets.Core.csproj" />
+    <ProjectReference Include="..\CharacterSheets.Core.Tests.Shared\CharacterSheets.Core.Tests.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
