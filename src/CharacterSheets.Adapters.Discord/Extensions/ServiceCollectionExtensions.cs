@@ -37,13 +37,7 @@ public static class ServiceCollectionExtensions
             .AddSingleton(sp => new InteractionService(sp.GetRequiredService<DiscordSocketClient>(), sp.GetRequiredService<InteractionServiceConfig>()));
     }
 
-    private static IServiceCollection AddCommands(this IServiceCollection services)
-    {
-        return services.AddSingleton<BackupCommand>();
-    }
+    private static IServiceCollection AddCommands(this IServiceCollection services) => services.AddSingleton<BackupCommand>();
 
-    public static async Task RegisterCommands(this InteractionService interactionService, IServiceProvider serviceProvider)
-    {
-        await interactionService.AddModuleAsync<BackupCommand>(serviceProvider);
-    }
+    public static async Task RegisterCommands(this InteractionService interactionService, IServiceProvider serviceProvider) => await interactionService.AddModuleAsync<BackupCommand>(serviceProvider);
 }
